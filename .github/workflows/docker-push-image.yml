@@ -29,7 +29,9 @@ jobs:
           # tags: wuttinanwork/jsfprimeface:latest
           tags: wuttinanwork/jsfprimeface:${{ github.sha }}
 
-  job_id:
+  deploy_to_gcp_cloud_run:
+    runs-on: ubuntu-latest
+
     permissions:
       contents: 'read'
       id-token: 'write'
