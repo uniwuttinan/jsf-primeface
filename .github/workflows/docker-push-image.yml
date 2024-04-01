@@ -26,4 +26,32 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: wuttinanwork/jsfprimeface:latest
+          # tags: wuttinanwork/jsfprimeface:latest
+          tags: wuttinanwork/jsfprimeface:${{ github.sha }}
+
+  job_id:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - uses: 'google-github-actions/auth@v2'
+        # with:
+        #   workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+        #   service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}' # Replace with the name of your GitHub Actions secret
+
+      - uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          image: docker.io/wuttinanwork/jsfprimeface@${{ github.sha }}
+          service: 'jsfprimeface'
+          region: us-west1
+          containerPort: 8080
+          # set resource memory to '1GB' and CPU to 1
+          memory: 1Gi
+          cpu: 1
+          # set minimum instances to 1 and maximum instances to 3
+          minInstances: 1
+          maxInstances: 3
+
