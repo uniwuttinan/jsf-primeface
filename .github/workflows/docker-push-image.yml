@@ -6,7 +6,7 @@ on:
       - 'main'
 
 jobs:
-  docker:
+  build_and_push:
     runs-on: ubuntu-latest
     steps:
       -
@@ -21,15 +21,27 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
+
+      # -
+      #   name: Build and push
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     push: true
+      #     # tags: wuttinanwork/jsfprimeface:latest
+      #     tags: wuttinanwork/jsfprimeface:${{ github.sha }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
         with:
           push: true
-          # tags: wuttinanwork/jsfprimeface:latest
-          tags: wuttinanwork/jsfprimeface:${{ github.sha }}
+          tags: wuttinanwork/jsfprimeface:latest
+
+    outputs:
+      digest: ${{ steps.docker_build.outputs.digest }}
 
   deploy_to_gcp_cloud_run:
+    needs: build_and_push
     runs-on: ubuntu-latest
 
     permissions:
@@ -44,9 +56,12 @@ jobs:
         with:
           credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}' # Replace with the name of your GitHub Actions secret
 
+      - name: Get the image SHA
+        run: echo "The image SHA is ${{ needs.build_and_push.outputs.digest }}"
+
       - uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
-          image: docker.io/wuttinanwork/jsfprimeface@${{ github.sha }}
+          image: docker.io/wuttinanwork/jsfprimeface@${{ needs.build_and_push.outputs.digest }}
           service: 'jsfprimeface'
           region: us-west1
           containerPort: 8080
@@ -56,4 +71,5 @@ jobs:
           # set minimum instances to 1 and maximum instances to 3
           minInstances: 1
           maxInstances: 3
-
+          # allow unauthenticated invocations
+          allowUnauthenticated: true
