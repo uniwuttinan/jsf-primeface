@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  jsfprimeface:
+    image: jsfprimeface
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./DEBUG/tomcat/logs:/usr/local/tomcat/logs

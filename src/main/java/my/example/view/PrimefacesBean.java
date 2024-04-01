@@ -2,6 +2,7 @@ package my.example.view;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -11,8 +12,9 @@ import my.example.model.Person;
 import my.example.service.NameService;
 
 @ViewScoped
-@ManagedBean(name="pfBean")
+@ManagedBean(name="pfBean", eager=true)
 public class PrimefacesBean implements Serializable{
+	
 	
 	/**
 	 * 
@@ -23,11 +25,22 @@ public class PrimefacesBean implements Serializable{
 	@Getter
 	private Person person= new Person();
 
-	private final NameService service = new NameService();
+	private NameService service = new NameService();
 
 	@Setter
 	@Getter
 	private String fullName;
+
+	@PostConstruct
+	public void init() {
+		this.service = new NameService();
+		this.person = new Person();
+	}
+
+	public PrimefacesBean() {
+		this.service = new NameService();
+		this.person = new Person();
+	};
 
 
 	public void submitButtonOnClick() {
@@ -35,13 +48,23 @@ public class PrimefacesBean implements Serializable{
 	};
 
 	// on contact preference changed
-	// clear phone number if email is selected
-	// otherwise, clear email
 	public void contactPreferenceChanged() {
-		if (this.person.getContactPreference().equals("phone")) {
-			this.person.setEmail("");
-		} else {
-			this.person.setPhoneNumber("");
-		}
+//		if (this.person.getContactPreference().equals("phone")) {
+//			this.person.setEmail("");
+//		} else {
+//			this.person.setPhoneNumber("");
+//		}
+        this.person.setEmail("");
+        this.person.setPhoneNumber("");
 	}
+
+    public String personSexFull () {
+        switch (this.person.getSex()) {
+            case "M":
+                return "Male";
+            case "F":
+                return "Female";
+        }
+        return "Unknown";
+    }
 }

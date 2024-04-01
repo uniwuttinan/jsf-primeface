@@ -42,7 +42,6 @@ public class Person implements Serializable {
 
 
 	public Person() {
-
 		id = UUID.randomUUID().toString();
 		this.firstName = "";
 		this.lastName = "";
