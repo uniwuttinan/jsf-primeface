@@ -1,0 +1,9 @@
+/workspaces/jsf-primeface/src/main/java/my/example/model/Person.java
+/workspaces/jsf-primeface/src/main/java/my/example/view/CrudBean.java
+/workspaces/jsf-primeface/src/main/java/my/example/view/JsfBean.java
+/workspaces/jsf-primeface/src/main/java/my/example/model/Employee.java
+/workspaces/jsf-primeface/src/main/java/my/example/servlet/TextResultServlet.java
+/workspaces/jsf-primeface/src/main/java/my/example/servlet/HtmlResultServlet.java
+/workspaces/jsf-primeface/src/main/java/my/example/service/NameService.java
+/workspaces/jsf-primeface/src/main/java/my/example/service/EmployeeServiceMemory.java
+/workspaces/jsf-primeface/src/main/java/my/example/view/PrimefacesBean.java
