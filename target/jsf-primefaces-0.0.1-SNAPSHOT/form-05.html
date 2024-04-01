@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>HTML Form</title> 
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+function initAjax(){
+	$.ajaxSetup( { cache : false } );
+}
+function initLoad(){
+	$("#submitBtn").click( function(){ submitForm() } );
+}
+function window_onload(){
+	initAjax();
+	initLoad();
+}
+$( document ).ready( window_onload );
+</script>
+<script type="text/javascript">
+function submitForm(){
+	fnameStr = $("#myForm").find( "input[name='fname']" ).val();
+	lnameStr = $("#myForm").find( "input[name='lname']" ).val();
+ 
+	urlStr = "http://localhost:8080/jsf-primefaces/text-result-servlet";
+
+	$.post(
+			urlStr,{ "fname":fnameStr , "lname":lnameStr }, 
+			function( data ){
+				$( "#fullnameid" ).text(data);
+			}
+	); 
+}
+</script>
+</head>
+<body>
+	<form id="myForm">
+	  	<label for="fnameid">First Name :</label><br>
+	  	<input id="fnameid"   type="text"   name="fname"><br>
+	  	<label for="lnameid">Last Name :</label><br>
+	  	<input id="lnameid"   type="text"   name="lname"><br>
+	  	<input id="submitBtn" type="button" value="Submit"><br>
+	  	<br>
+	  	<label for="fullnameid">Full Name :</label>
+	  	<label id="fullnameid" ></label>
+  	</form> 
+</body>
+</html>

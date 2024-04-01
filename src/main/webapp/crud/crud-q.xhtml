@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panel rendered="#{crudBean.mode == 'R'}">
+		<p:panelGrid columns="2">
+			<p:outputLabel for="firstname" value="First Name" />
+			<p:inputText id="firstname" value="#{crudBean.employeeCriteria.firstName}"
+				autocomplete="off" />
+
+			<p:outputLabel for="lastname" value="Last Name" />
+			<p:inputText id="lastname" value="#{crudBean.employeeCriteria.lastName}"
+				autocomplete="off" />
+		</p:panelGrid>
+
+		<p:commandButton id="searchBtn" value="search" update="@form"
+			action="#{crudBean.searchBtnOnclick}" />
+
+		<p:commandButton id="addPageBtn" value="add" update="@form"
+			action="#{crudBean.addBtnOnclick}" /> 
+
+		<p:dataTable value="#{crudBean.employeeList}" var="m" >
+			<p:ajax event="rowSelect" 
+				listener="#{crudBean.onRowSelect}" update="@form" />
+			<p:column headerText="First">
+				#{m.firstName}</p:column>
+
+			<p:column headerText="Last">
+				#{m.lastName}</p:column>
+				
+			<p:column headerText="Action">
+			 	<p:commandButton id="searchBtn" value="edit" update="@form"
+					action="#{crudBean.editBtnOnclick(m)}" />
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+</ui:composition>

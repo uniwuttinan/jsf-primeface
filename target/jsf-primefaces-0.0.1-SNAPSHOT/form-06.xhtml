@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="th"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Primefaces 7.0 Form</title>
+</h:head>
+<h:body>
+<h:form>
+<h:panelGrid>
+	<p:outputLabel value="Title" />
+	<p:selectOneMenu value="#{pfBean.person.title}">
+		<f:selectItem itemLabel="Mr." itemValue="Mr." />
+		<f:selectItem itemLabel="Mrs." itemValue="Mrs." />
+		<f:selectItem itemLabel="Miss" itemValue="Miss" />
+		<f:selectItem itemLabel="Ms." itemValue="Ms." />
+	</p:selectOneMenu>
+
+	<p:outputLabel 	 id="yyyy" value="First Name :" />
+	<p:inputText 	 value="#{pfBean.person.firstName}"/>
+
+	<p:outputLabel   value="Last Name :" />
+	<p:inputText     value="#{pfBean.person.lastName}"/>
+
+	<p:outputLabel value="Sex" />
+	<p:selectOneButton value="#{pfBean.person.sex}">
+		<f:selectItem itemLabel="Male" itemValue="M"/>
+		<f:selectItem itemLabel="Female" itemValue="F" />
+	</p:selectOneButton>
+
+	<p:selectOneRadio id="console" value="#{pfBean.person.contactPreference}" unselectable="true">
+		<f:selectItem itemLabel="Phone" itemValue="phone" />
+		<f:selectItem itemLabel="Email" itemValue="email" />
+		<p:ajax update="contactPanel" />
+<!--		<f:ajax listener="#{pfBean.contactPreferenceChanged()}" render="contactPanel" />-->
+	</p:selectOneRadio>
+	<br/>
+
+	<h:panelGroup id="contactPanel">
+<!--		<p:outputLabel value="#{pfBean.person.contactPreference}" />-->
+<!--		<br/>-->
+
+		<h:panelGroup rendered="#{pfBean.person.contactPreference.equals('phone')}">
+			<p:outputLabel value="Phone:" />
+			<br/>
+			<p:inputText value="#{pfBean.person.phoneNumber}"/>
+		</h:panelGroup>
+
+		<h:panelGroup rendered="#{pfBean.person.contactPreference.equals('email')}">
+			<p:outputLabel value="Email:" />
+			<br/>
+			<p:inputText value="#{pfBean.person.email}"/>
+		</h:panelGroup>
+	</h:panelGroup>
+
+	<br/>
+
+	<p:commandButton value="Submit" 
+					 action="#{pfBean.submitButtonOnClick}"
+					 process="@form"
+					 update="outputPanel"
+	/>
+	<br/>
+
+	<h:panelGroup id="outputPanel">
+		<p:outputLabel id="xxxx" value="FullName: #{pfBean.fullName}" />
+		<br/>
+		<p:outputLabel value="Sex: #{pfBean.getPerson().getSex()}" />
+		<br/>
+		<p:outputLabel value="Contact Preference: #{pfBean.getPerson().getContactPreference()}" />
+		<br/>
+		<p:outputLabel value="Phone: #{pfBean.getPerson().getPhoneNumber()}" rendered="#{pfBean.getPerson().contactPreference.equals('phone')}" />
+		<p:outputLabel value="Email: #{pfBean.getPerson().getEmail()}" rendered="#{pfBean.getPerson().contactPreference.equals('email')}" />
+	</h:panelGroup>
+</h:panelGrid>
+</h:form>
+</h:body>
+</html>
