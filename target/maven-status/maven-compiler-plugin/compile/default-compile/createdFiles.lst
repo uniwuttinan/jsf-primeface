@@ -1,9 +1,0 @@
-my/example/servlet/TextResultServlet.class
-my/example/servlet/HtmlResultServlet.class
-my/example/view/PrimefacesBean.class
-my/example/model/Person.class
-my/example/view/JsfBean.class
-my/example/view/CrudBean.class
-my/example/model/Employee.class
-my/example/service/NameService.class
-my/example/service/EmployeeServiceMemory.class
