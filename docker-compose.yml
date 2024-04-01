@@ -8,3 +8,5 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 8080:8080
+    volumes:
+      - ./DEBUG/tomcat/logs:/usr/local/tomcat/logs

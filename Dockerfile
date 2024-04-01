@@ -4,11 +4,12 @@ WORKDIR /app
 COPY pom.xml .
 # RUN mvn dependency:go-offline
 COPY src src
-RUN mvn package
+# RUN mvn package
+RUN mvn install
 
 # Stage 2: Deploy the built artifact to Tomcat
 FROM tomcat:8-jdk8-openjdk
-COPY --from=build /app/target/jsf-primefaces-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/
+COPY --from=build /app/target/jsf-primefaces-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
 
 CMD ["catalina.sh", "run"]

@@ -118,7 +118,7 @@
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<attachClasses>true</attachClasses>
-					<archiveClasses>true</archiveClasses>
+					<archiveClasses>false</archiveClasses>
 					<archive>
 						<manifest>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
