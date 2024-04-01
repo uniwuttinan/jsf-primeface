@@ -31,8 +31,8 @@
 		
 		<!-- Provided Scope  -->
 		<my.javax.servlet-api>3.0.1</my.javax.servlet-api>
-		<!-- <my.lombok>1.16.4</my.lombok> -->
-		<my.lombok>1.18.28</my.lombok>
+		<my.lombok>1.16.4</my.lombok>
+		<!-- <my.lombok>1.18.28</my.lombok> -->
 
 		<!-- Test Scope -->
 		<my.junit>4.13.1</my.junit>
@@ -80,12 +80,13 @@
 			<version>${my.lombok}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+		
+		<!-- <dependency>
 			<groupId>jakarta.annotation</groupId>
 			<artifactId>jakarta.annotation-api</artifactId>
 			<version>1.3.5</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency> -->
 
 		<!-- Test Scope -->
 		<dependency>

@@ -22,7 +22,7 @@ function submitForm(){
 	fnameStr = $("#myForm").find( "input[name='fname']" ).val();
 	lnameStr = $("#myForm").find( "input[name='lname']" ).val();
  
-	urlStr = "http://localhost:8080/jsf-primefaces/text-result-servlet";
+	urlStr = "text-result-servlet";
 
 	$.post(
 			urlStr,{ "fname":fnameStr , "lname":lnameStr }, 

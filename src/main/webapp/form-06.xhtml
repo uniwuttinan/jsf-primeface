@@ -65,6 +65,13 @@
 	/>
 	<br/>
 
+	<p:outputLabel value="DEBUG" />
+	<p:outputLabel value="pfBean == null ? #{pfBean == null}" />
+	<p:outputLabel value="pfBean.person == null ? #{pfBean.person == null}" />
+	<p:outputLabel value="#{pfBean.person.firstName}" />
+	<p:outputLabel value="#{pfBean.person.contactPreference}" />
+	<br/>
+
 	<h:panelGroup id="outputPanel">
 		<p:outputLabel id="xxxx" value="FullName: #{pfBean.fullName}" />
 		<br/>
