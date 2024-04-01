@@ -34,14 +34,15 @@
 	<p:selectOneRadio id="console" value="#{pfBean.person.contactPreference}" unselectable="true">
 		<f:selectItem itemLabel="Phone" itemValue="phone" />
 		<f:selectItem itemLabel="Email" itemValue="email" />
-		<p:ajax update="contactPanel" />
+<!--		<p:ajax update="contactPanel" />-->
 <!--		<f:ajax listener="#{pfBean.contactPreferenceChanged()}" render="contactPanel" />-->
+        <p:ajax listener="#{pfBean.contactPreferenceChanged}" event="change" update="contactPanel" />
 	</p:selectOneRadio>
 	<br/>
 
 	<h:panelGroup id="contactPanel">
-		<p:outputLabel value="#{pfBean.person.contactPreference}" />
-		<br/>
+<!--		<p:outputLabel value="#{pfBean.person.contactPreference}" />-->
+<!--		<br/>-->
 
 		<h:panelGroup rendered="#{pfBean.person.contactPreference.equals('phone')}">
 			<p:outputLabel value="Phone:" />
@@ -65,23 +66,23 @@
 	/>
 	<br/>
 
-	<p:outputLabel value="DEBUG" />
-	<p:outputLabel value="pfBean == null ? #{pfBean == null}" />
-	<p:outputLabel value="pfBean.person == null ? #{pfBean.person == null}" />
-	<p:outputLabel value="#{pfBean.person.firstName}" />
-	<p:outputLabel value="#{pfBean.person.contactPreference}" />
-	<br/>
-
 	<h:panelGroup id="outputPanel">
 		<p:outputLabel id="xxxx" value="FullName: #{pfBean.fullName}" />
 		<br/>
-		<p:outputLabel value="Sex: #{pfBean.getPerson().getSex()}" />
+		<p:outputLabel value="Sex: #{pfBean.personSexFull()}" />
 		<br/>
 		<p:outputLabel value="Contact Preference: #{pfBean.getPerson().getContactPreference()}" />
 		<br/>
 		<p:outputLabel value="Phone: #{pfBean.getPerson().getPhoneNumber()}" rendered="#{pfBean.getPerson().contactPreference.equals('phone')}" />
 		<p:outputLabel value="Email: #{pfBean.getPerson().getEmail()}" rendered="#{pfBean.getPerson().contactPreference.equals('email')}" />
 	</h:panelGroup>
+
+<!--    <p:outputLabel value="DEBUG" />-->
+<!--    <p:outputLabel value="pfBean == null ? #{pfBean == null}" />-->
+<!--    <p:outputLabel value="pfBean.person == null ? #{pfBean.person == null}" />-->
+<!--    <p:outputLabel value="#{pfBean.person.firstName}" />-->
+<!--    <p:outputLabel value="#{pfBean.person.contactPreference}" />-->
+<!--    <br/>-->
 </h:panelGrid>
 </h:form>
 </h:body>

@@ -48,13 +48,23 @@ public class PrimefacesBean implements Serializable{
 	};
 
 	// on contact preference changed
-	// clear phone number if email is selected
-	// otherwise, clear email
 	public void contactPreferenceChanged() {
-		if (this.person.getContactPreference().equals("phone")) {
-			this.person.setEmail("");
-		} else {
-			this.person.setPhoneNumber("");
-		}
+//		if (this.person.getContactPreference().equals("phone")) {
+//			this.person.setEmail("");
+//		} else {
+//			this.person.setPhoneNumber("");
+//		}
+        this.person.setEmail("");
+        this.person.setPhoneNumber("");
 	}
+
+    public String personSexFull () {
+        switch (this.person.getSex()) {
+            case "M":
+                return "Male";
+            case "F":
+                return "Female";
+        }
+        return "Unknown";
+    }
 }
