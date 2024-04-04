@@ -1,53 +1,33 @@
 package my.example.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
-public class Employee {
-	
-	private String id;
-	
-	private String firstName;
-	
-	private String lastName;
-	
-	private Date birthDate;
-	
-	public Employee() {
-		id = UUID.randomUUID().toString();
-	}
+@Setter
+@Getter
+public class Employee implements Serializable {
+    private String id;
 
-	public String getId() {
-		return id;
-	}
+    private String firstName;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String lastName;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    private Date birthDate;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public Employee(String firstName, String lastName, Date birthDate) {
+        this.id = "0";
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-	  
-	
+    public Employee() {
+        this.id = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.birthDate = new Date();
+    }
 }

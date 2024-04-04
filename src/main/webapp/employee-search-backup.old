@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="th"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:wuttinan="http://java.sun.com/jsf/composite/wuttinan"
+>
+<h:head>
+    <title>Employee Search</title>
+</h:head>
+<h:body>
+    <h:form id="tableform">
+        <wuttinan:employeeForm
+                id="searchForm"
+                firstname="#{employeeBean.employeeForm.firstName}"
+                lastname="#{employeeBean.employeeForm.lastName}"
+        />
+
+        <p:commandButton
+                id="searchEmployeeButton"
+                value="Search"
+                action="#{employeeSearchBean.startSearch}"
+                process="searchForm"
+                update="searchresult"
+        >
+            <p:ajax update="searchresult"/>
+        </p:commandButton>
+
+        <p:commandButton
+                id="clearSearch"
+                value="Clear"
+                action="#{employeeBean.clearEmployeeForm}"
+                update="searchForm"
+        />
+
+        <p:commandButton
+                id="addEmployeeButton"
+                value="Add"
+                action="#{employeeBean.onEmployeeAddButtonClicked}"
+        />
+
+        <br/><br/>
+
+
+    </h:form>
+
+    <p:dataTable id="searchresult" var="employee" value="#{employeeSearchBean.searchResults}">
+        <p:columnGroup type="header">
+            <p:column headerText="#"/>
+            <p:column headerText="Firstname"/>
+            <p:column headerText="Lastname" styleClass="text-left"/>
+            <p:column headerText="Actions" styleClass="text-left"/>
+        </p:columnGroup>
+
+        <p:column headerText="Id">
+            <h:outputText value="#{employee.id}"/>
+        </p:column>
+
+        <p:column headerText="Year">
+            <h:outputText value="#{employee.firstName}"/>
+        </p:column>
+
+        <p:column headerText="Brand">
+            <h:outputText value="#{employee.lastName}"/>
+        </p:column>
+
+        <p:column headerText="Action">
+            <p:commandButton
+                    value="Edit"
+                    action="#{employeeBean.onEditButtonClicked(employee)}"
+                    process="@this"
+            />
+        </p:column>
+    </p:dataTable>
+</h:body>
+</html>

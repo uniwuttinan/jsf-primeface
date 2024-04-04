@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="th"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:wuttinan="http://java.sun.com/jsf/composite/wuttinan"
+>
+<h:head>
+    <title>Employee Edit</title>
+</h:head>
+<h:body>
+    <h:form>
+        <wuttinan:employeeForm
+                id="employeeEditForm"
+                firstname="#{employeeEditBean.employeeForm.firstName}"
+                lastname="#{employeeEditBean.employeeForm.lastName}"
+        />
+
+        <p:commandButton
+                id="updateEmployeeButton"
+                value="Update"
+                action="#{employeeEditBean.onUpdateClicked}"
+        />
+
+        <p:commandButton
+                id="deleteEmployeeButton"
+                value="Delete"
+                action="#{employeeEditBean.onDeleteClicked}"
+        />
+
+        <p:commandButton
+                id="backButton"
+                value="Back"
+                action="#{employeeBean.onBackClicked}"
+        />
+    </h:form>
+</h:body>
+</html>

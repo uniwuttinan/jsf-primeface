@@ -49,11 +49,6 @@ public class PrimefacesBean implements Serializable{
 
 	// on contact preference changed
 	public void contactPreferenceChanged() {
-//		if (this.person.getContactPreference().equals("phone")) {
-//			this.person.setEmail("");
-//		} else {
-//			this.person.setPhoneNumber("");
-//		}
         this.person.setEmail("");
         this.person.setPhoneNumber("");
 	}
