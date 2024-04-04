@@ -65,9 +65,13 @@
 		    <version>${my.commons-beanutils}</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.9</version>
+		</dependency>
 		
 		<!-- Provided Scope  -->
-		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
