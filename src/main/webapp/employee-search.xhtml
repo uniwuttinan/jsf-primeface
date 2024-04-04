@@ -33,15 +33,15 @@
         <br/><br/>
 
         <p:dataTable id="results" var="employee" value="#{employeeSearchBean.searchResults}">
-            <p:column headerText="Id">
+            <p:column headerText="#">
                 <h:outputText value="#{employee.id}"/>
             </p:column>
 
-            <p:column headerText="Year">
+            <p:column headerText="Firstname">
                 <h:outputText value="#{employee.firstName}"/>
             </p:column>
 
-            <p:column headerText="Brand">
+            <p:column headerText="Lastname">
                 <h:outputText value="#{employee.lastName}"/>
             </p:column>
 
