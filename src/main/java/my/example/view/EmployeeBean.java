@@ -7,75 +7,75 @@ import my.example.service.EmployeeServiceMemory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
+import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 @Setter
 @Getter
-@SessionScoped
+@ViewScoped
 @ManagedBean(name = "employeeBean")
 public class EmployeeBean implements Serializable {
     private static final Logger log = Logger.getLogger(EmployeeBean.class.getName());
 
     private final EmployeeServiceMemory employeeService = new EmployeeServiceMemory();
 
-    private static ExternalContext getExternalContext() {
-        return FacesContext.getCurrentInstance().getExternalContext();
-    }
+    private List<Employee> searchResults = new ArrayList<>();
+
+    private Employee employeeForm = new Employee();
+
+    private String crudMode = "read";
 
     @PostConstruct
     public void init() {
         employeeService.mock();
+        startSearch();
     }
 
-    private void redirect(String url) {
-        try {
-            ExternalContext ec = getExternalContext();
-            ec.redirect(url);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void resetForm() {
+        setEmployeeForm(new Employee());
     }
 
     public void onEditClicked(Employee employee) {
-        // save the selected employee to session
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-        sessionMap.put("selectingEmployee", employee);
-        // redirect to employee-edit.xhtml
-        redirect("employee-edit.xhtml");
+        setCrudMode("update");
+        setEmployeeForm(employee);
     }
 
-    public void onEmployeeAddButtonClicked() {
-        redirect("employee-add.xhtml");
+    public void gotoCreatePage() {
+        resetForm();
+        setCrudMode("create");
     }
 
-    public void onBackClicked() {
-        redirect("employee-search.xhtml");
+    public void gotoReadPage() {
+        resetForm();
+        startSearch();
+        setCrudMode("read");
     }
 
-    public void onEmployeeAdd(Employee employee) {
-        employeeService.add(employee);
-        redirect("employee-search.xhtml");
+    public void onEmployeeCreate() {
+        employeeService.add(getEmployeeForm());
+        gotoReadPage();
     }
 
-    public void onEmployeeUpdate(Employee employee) {
-        employeeService.update(employee);
-        redirect("employee-search.xhtml");
+    public void onEmployeeUpdate() {
+        employeeService.update(getEmployeeForm());
+        gotoReadPage();
     }
 
-    public void onEmployeeDelete(Employee employee) {
-        employeeService.delete(employee.getId());
-        redirect("employee-search.xhtml");
+    public void onEmployeeDelete() {
+        employeeService.delete(getEmployeeForm().getId());
+        gotoReadPage();
     }
 
-    public List<Employee> searchEmployee(Employee query) {
-        return getEmployeeService().search(query);
+    public void startSearch() {
+        log.info(
+                String.format("Start search: %s %s %s", this.getEmployeeForm().getId(), this.getEmployeeForm().getFirstName(), this.getEmployeeForm().getLastName())
+        );
+        searchResults = new ArrayList<>();
+        searchResults.addAll(
+                getEmployeeService().search(getEmployeeForm())
+        );
     }
 }

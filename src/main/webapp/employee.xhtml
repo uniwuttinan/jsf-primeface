@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="th"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:w="http://java.sun.com/jsf/composite/wuttinan"
+>
+<h:head>
+    <title>Employee Search</title>
+</h:head>
+<h:body>
+    <h:form id="baseForm">
+        <w:employeeForm
+                id="employeeForm"
+                firstname="#{employeeBean.employeeForm.firstName}"
+                lastname="#{employeeBean.employeeForm.lastName}"
+        />
+
+        <br/>
+
+        <p:commandButton
+                id="createEmployeeButton"
+                value="Create"
+                action="#{employeeBean.onEmployeeCreate}"
+                process="@form"
+                update="@form"
+                rendered="#{employeeBean.crudMode == 'create'}"
+        />
+
+        <p:commandButton
+                id="searchEmployeeButton"
+                value="Search"
+                action="#{employeeBean.startSearch}"
+                process="@form"
+                update="@form"
+                rendered="#{employeeBean.crudMode == 'read'}"
+        />
+
+        <p:commandButton
+                id="addEmployeeButton"
+                value="Add"
+                action="#{employeeBean.gotoCreatePage}"
+                process="@form"
+                update="@form"
+                rendered="#{employeeBean.crudMode == 'read'}"
+        />
+
+        <p:commandButton
+                id="updateEmployeeButton"
+                value="Update"
+                action="#{employeeBean.onEmployeeUpdate}"
+                process="@form"
+                update="@form"
+                rendered="#{employeeBean.crudMode == 'update'}"
+        />
+
+        <p:commandButton
+                id="deleteEmployeeButton"
+                value="Delete"
+                action="#{employeeBean.onEmployeeDelete}"
+                process="@form"
+                update="@form"
+                rendered="#{employeeBean.crudMode == 'update'}"
+        />
+
+        <p:commandButton
+                id="backButton"
+                value="Back"
+                action="#{employeeBean.gotoReadPage}"
+                process="@form"
+                update="@form"
+                rendered="#{employeeBean.crudMode == 'create' || employeeBean.crudMode == 'update'}"
+        />
+
+        <br/><br/>
+
+        <p:dataTable
+                rendered="#{employeeBean.crudMode == 'read'}"
+                id="results"
+                var="employee"
+                value="#{employeeBean.searchResults}"
+        >
+            <p:column headerText="#">
+                <h:outputText value="#{employee.id}"/>
+            </p:column>
+
+            <p:column headerText="Firstname">
+                <h:outputText value="#{employee.firstName}"/>
+            </p:column>
+
+            <p:column headerText="Lastname">
+                <h:outputText value="#{employee.lastName}"/>
+            </p:column>
+
+            <p:column headerText="Action">
+                <p:commandButton
+                        value="Edit"
+                        action="#{employeeBean.onEditClicked(employee)}"
+                        process="@this"
+                        update="@form"
+                />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
