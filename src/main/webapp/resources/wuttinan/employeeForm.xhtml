@@ -11,16 +11,24 @@
 </composite:interface>
 
 <composite:implementation>
-    <p:outputLabel value="First Name: "/>
-    <p:inputText
-            id="firstname"
-            value="#{cc.attrs.employeeBean.employeeForm.firstName}"
-            required="#{cc.attrs.employeeBean.crudMode == 'create'}"
-    />
-    <br/>
+    <p:tooltip/>
 
-    <p:outputLabel value="Last Name: "/>
-    <p:inputText id="lastname" value="#{cc.attrs.employeeBean.employeeForm.lastName}"/>
+    <p:panelGrid id="grid" columns="#{cc.attrs.employeeBean.getPanelGridColumnCount()}" cellpadding="5">
+        <p:outputLabel value="First Name: " for="firstname"/>
+        <p:inputText
+                id="firstname"
+                value="#{cc.attrs.employeeBean.employeeForm.firstName}"
+                required="#{cc.attrs.employeeBean.crudMode == 'create'}"
+        />
+        <p:message for="firstname" rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"/>
+
+        <p:outputLabel value="Last Name: " for="lastname"/>
+        <p:inputText id="lastname" value="#{cc.attrs.employeeBean.employeeForm.lastName}"/>
+        <p:message
+                for="lastname"
+                rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"
+        />
+    </p:panelGrid>
 </composite:implementation>
 
 </html>

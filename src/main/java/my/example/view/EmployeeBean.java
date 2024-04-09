@@ -92,4 +92,11 @@ public class EmployeeBean implements Serializable {
             resetFormToSelectedEmployee();
         }
     }
+
+    public int getPanelGridColumnCount() {
+        if (getCrudMode().equals("read")) {
+            return 2;
+        }
+        return 3;
+    }
 }
