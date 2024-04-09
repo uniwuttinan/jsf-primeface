@@ -14,7 +14,7 @@
     <p:tooltip/>
 
     <p:panelGrid id="grid" columns="#{cc.attrs.employeeBean.getPanelGridColumnCount()}" cellpadding="5">
-        <p:outputLabel value="First Name: " for="firstname"/>
+        <p:outputLabel value="Firstname" for="firstname"/>
         <p:inputText
                 id="firstname"
                 value="#{cc.attrs.employeeBean.employeeForm.firstName}"
@@ -22,10 +22,35 @@
         />
         <p:message for="firstname" rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"/>
 
-        <p:outputLabel value="Last Name: " for="lastname"/>
+        <p:outputLabel value="Lastname" for="lastname"/>
         <p:inputText id="lastname" value="#{cc.attrs.employeeBean.employeeForm.lastName}"/>
         <p:message
                 for="lastname"
+                rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"
+        />
+
+        <p:outputLabel value="Birth Date" for="birthdate" rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"/>
+        <p:calendar
+                id="birthdate"
+                value="#{cc.attrs.employeeBean.employeeForm.birthDate}"
+                rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"
+                pattern="dd/MM/yyyy"
+        >
+            <p:ajax
+                    event="dateSelect"
+                    update="age"
+            />
+        </p:calendar>
+        <p:message for="birthdate" rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"/>
+
+        <p:outputLabel
+                value="Age"
+                for="age"
+                rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"
+        />
+        <p:outputLabel
+                id="age"
+                value="#{cc.attrs.employeeBean.employeeForm.age}"
                 rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"
         />
     </p:panelGrid>
