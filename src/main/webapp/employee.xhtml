@@ -5,16 +5,21 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:w="http://java.sun.com/jsf/composite/wuttinan"
+      xmlns:f="http://java.sun.com/jsf/core"
 >
 <h:head>
-    <title>Employee Search</title>
+    <title>Employee</title>
 </h:head>
 <h:body>
+
     <h:form id="baseForm">
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
         <w:employeeForm
                 id="employeeForm"
-                firstname="#{employeeBean.employeeForm.firstName}"
-                lastname="#{employeeBean.employeeForm.lastName}"
+                employeeBean="#{employeeBean}"
         />
 
         <br/>
@@ -68,9 +73,19 @@
                 id="backButton"
                 value="Back"
                 action="#{employeeBean.gotoReadPage}"
+                update="@form"
+                process="@this"
+                immediate="true"
+                rendered="#{employeeBean.crudMode == 'create' || employeeBean.crudMode == 'update'}"
+        />
+
+        <p:commandButton
+                id="resetSearch"
+                value="Reset"
+                action="#{employeeBean.onResetClick}"
                 process="@form"
                 update="@form"
-                rendered="#{employeeBean.crudMode == 'create' || employeeBean.crudMode == 'update'}"
+                rendered="#{employeeBean.crudMode == 'read' || employeeBean.crudMode == 'update'}"
         />
 
         <br/><br/>
@@ -80,7 +95,16 @@
                 id="results"
                 var="employee"
                 value="#{employeeBean.searchResults}"
+                selectionMode="single"
+                selection="#{employeeBean.selectedEmployee}"
+                rowKey="#{employee.id}"
         >
+            <p:ajax
+                    event="rowSelect"
+                    listener="#{employeeBean.onRowSelect}"
+                    update="@form"
+            />
+
             <p:column headerText="#">
                 <h:outputText value="#{employee.id}"/>
             </p:column>
@@ -93,13 +117,14 @@
                 <h:outputText value="#{employee.lastName}"/>
             </p:column>
 
+            <p:column headerText="Age">
+                <h:outputText value="#{employee.age}"/>
+            </p:column>
+
             <p:column headerText="Action">
-                <p:commandButton
-                        value="Edit"
-                        action="#{employeeBean.onEditClicked(employee)}"
-                        process="@this"
-                        update="@form"
-                />
+                <p:commandButton update="@form" title="Edit" value="Edit">
+                    <f:setPropertyActionListener value="#{employee}" target="#{employeeBean.selectedEmployee}"/>
+                </p:commandButton>
             </p:column>
         </p:dataTable>
     </h:form>

@@ -3,7 +3,12 @@ package my.example.service;
 import my.example.model.Employee;
 
 import java.io.Serializable;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,9 +21,16 @@ public class EmployeeServiceMemory implements Serializable {
         if (!employeeMap.isEmpty()) {
             return;
         }
-        add(new Employee("AAA", "aaa", new Date()));
-        add(new Employee("BBB", "bbb", new Date()));
-        add(new Employee("CCC", "ccc", new Date()));
+
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
+            add(new Employee("Adam", "Adam", formatter.parse("01-01-2001")));
+            add(new Employee("Bob", "Bob", formatter.parse("02-02-2002")));
+            add(new Employee("Charlie", "Charlie", formatter.parse("03-03-2003")));
+        } catch (ParseException e) {
+            log.log(Level.SEVERE, "Error parsing date", e);
+        }
     }
 
     public void add(Employee employee) {
