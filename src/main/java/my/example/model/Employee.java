@@ -70,7 +70,7 @@ public class Employee implements Serializable, Cloneable {
             clone.id = this.id;
             clone.firstName = this.firstName;
             clone.lastName = this.lastName;
-            clone.birthDate = this.birthDate;
+            clone.birthDate = (Date) this.birthDate.clone();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

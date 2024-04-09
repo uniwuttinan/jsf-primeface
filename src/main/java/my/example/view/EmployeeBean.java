@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import my.example.model.Employee;
 import my.example.service.EmployeeServiceMemory;
+import org.primefaces.event.SelectEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -48,9 +49,17 @@ public class EmployeeBean implements Serializable {
     }
 
     public void onEditClicked(Employee employee) {
-        setCrudMode("update");
         setSelectedEmployee(employee.clone());
         setEmployeeForm(employee.clone());
+        setCrudMode("update");
+    }
+
+    public void setSelectedEmployee(Employee employee) {
+        if (employee == null) return;
+
+        this.selectedEmployee = employee;
+        this.employeeForm = employee;
+        setCrudMode("update");
     }
 
     public void gotoCreatePage() {
@@ -121,5 +130,16 @@ public class EmployeeBean implements Serializable {
 
     public void showMessageError(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", message));
+    }
+
+    public void onRowSelect(SelectEvent event) {
+//        log.info("Selected: " + event.getObject());
+
+        Employee employee = (Employee) event.getObject();
+        if (employee == null) {
+            return;
+        }
+
+        onEditClicked(employee);
     }
 }
