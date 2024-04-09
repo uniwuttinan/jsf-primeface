@@ -7,14 +7,22 @@
       xmlns:wuttinan="http://java.sun.com/jsf/composite/wuttinan"
 >
 <h:head>
-    <title>Employee Edit</title>
+    <title>Add Employee</title>
 </h:head>
 <h:body>
     <h:form>
         <wuttinan:employeeForm
-                id="employeeEditForm"
-                firstname="#{employeeEditBean.employeeForm.firstName}"
-                lastname="#{employeeEditBean.employeeForm.lastName}"
+                id="searchForm"
+                firstname="#{employeeAddBean.employeeForm.firstName}"
+                lastname="#{employeeAddBean.employeeForm.lastName}"
+        />
+
+
+        <p:commandButton
+                id="saveEmployeeButton"
+                value="Save"
+                action="#{employeeAddBean.onSaveClicked}"
+                process="searchForm"
         />
 
         <p:commandButton
@@ -32,7 +40,7 @@
         <p:commandButton
                 id="backButton"
                 value="Back"
-                action="#{employeeBean.onBackClicked}"
+                action="#{employeeBean.gotoReadPage}"
         />
     </h:form>
 </h:body>

@@ -8,7 +8,7 @@
 
     <!-- Welcome page -->
     <welcome-file-list>
-        <welcome-file>employee-search.xhtml</welcome-file>
+        <welcome-file>employee.xhtml</welcome-file>
     </welcome-file-list>
 
     <!-- JSF mapping -->

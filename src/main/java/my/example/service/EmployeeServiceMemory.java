@@ -13,6 +13,9 @@ public class EmployeeServiceMemory implements Serializable {
     private static int recordIndex = 0;
 
     public void mock() {
+        if (!employeeMap.isEmpty()) {
+            return;
+        }
         add(new Employee("AAA", "aaa", new Date()));
         add(new Employee("BBB", "bbb", new Date()));
         add(new Employee("CCC", "ccc", new Date()));
@@ -63,5 +66,9 @@ public class EmployeeServiceMemory implements Serializable {
         } else {
             return 0;
         }
+    }
+
+    public Employee getByID(String id) {
+        return employeeMap.getOrDefault(id, null);
     }
 }
