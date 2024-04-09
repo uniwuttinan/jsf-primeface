@@ -67,8 +67,9 @@
                 id="backButton"
                 value="Back"
                 action="#{employeeBean.gotoReadPage}"
-                process="@form"
                 update="@form"
+                process="@this"
+                immediate="true"
                 rendered="#{employeeBean.crudMode == 'create' || employeeBean.crudMode == 'update'}"
         />
 
