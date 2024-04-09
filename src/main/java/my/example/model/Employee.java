@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.Date;
 
 @Setter
@@ -33,16 +34,10 @@ public class Employee implements Serializable, Cloneable {
         this.birthDate = new Date();
     }
 
-    public static String getTimeDifference(Date startDate, Date endDate) {
-        long millisecondsDifference = endDate.getTime() - startDate.getTime();
-
-        // Convert milliseconds to years, months, and days
-        long millisecondsInDay = 1000 * 60 * 60 * 24;
-        long daysDifference = millisecondsDifference / millisecondsInDay;
-        long years = daysDifference / 365;
-        long remainingDays = daysDifference % 365;
-        long months = remainingDays / 30;
-        long remainingDaysInMonth = remainingDays % 30;
+    public static String timeDiffToHumanReadable(Duration diff) {
+        long years = diff.toDays() / 365;
+        long months = (diff.toDays() % 365) / 30;
+        long remainingDaysInMonth = (diff.toDays() % 365) % 30;
 
         // Construct human-readable string
         StringBuilder result = new StringBuilder();
@@ -59,8 +54,13 @@ public class Employee implements Serializable, Cloneable {
         return result.toString().trim();
     }
 
+    public Duration getAgeDiffToNow() {
+        return Duration.between(birthDate.toInstant(), new Date().toInstant());
+    }
+
     public String getAge() {
-        return getTimeDifference(this.birthDate, new Date());
+        Duration diff = this.getAgeDiffToNow();
+        return timeDiffToHumanReadable(diff);
     }
 
     @Override

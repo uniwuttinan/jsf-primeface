@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -64,6 +65,16 @@ public class EmployeeBean implements Serializable {
     }
 
     public void onEmployeeCreate() {
+        Duration duration = getEmployeeForm().getAgeDiffToNow();
+        long diffYears = duration.toDays() / 365;
+        // log.info("diff " + diffYears);
+
+        // age must > 2 years
+        if (diffYears < 2) {
+            showMessageError("Age is invalid");
+            return;
+        }
+
         employeeService.add(getEmployeeForm());
         showMessage("บันทึกข้อมูลเรียบร้อย (CREATE)");
         gotoReadPage();
@@ -106,5 +117,9 @@ public class EmployeeBean implements Serializable {
 
     public void showMessage(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", message));
+    }
+
+    public void showMessageError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", message));
     }
 }
