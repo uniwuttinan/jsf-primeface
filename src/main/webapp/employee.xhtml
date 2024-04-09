@@ -73,6 +73,15 @@
                 rendered="#{employeeBean.crudMode == 'create' || employeeBean.crudMode == 'update'}"
         />
 
+        <p:commandButton
+                id="resetSearch"
+                value="Reset"
+                action="#{employeeBean.onResetClick}"
+                process="@form"
+                update="@form"
+                rendered="#{employeeBean.crudMode == 'read' || employeeBean.crudMode == 'update'}"
+        />
+
         <br/><br/>
 
         <p:dataTable

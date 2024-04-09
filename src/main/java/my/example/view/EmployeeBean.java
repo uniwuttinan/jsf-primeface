@@ -26,6 +26,8 @@ public class EmployeeBean implements Serializable {
 
     private Employee employeeForm = new Employee();
 
+    private Employee selectedEmployee = new Employee();
+
     private String crudMode = "read";
 
     @PostConstruct
@@ -38,9 +40,14 @@ public class EmployeeBean implements Serializable {
         setEmployeeForm(new Employee());
     }
 
+    public void resetFormToSelectedEmployee() {
+        setEmployeeForm(getSelectedEmployee().clone());
+    }
+
     public void onEditClicked(Employee employee) {
         setCrudMode("update");
-        setEmployeeForm(employee);
+        setSelectedEmployee(employee.clone());
+        setEmployeeForm(employee.clone());
     }
 
     public void gotoCreatePage() {
@@ -65,17 +72,24 @@ public class EmployeeBean implements Serializable {
     }
 
     public void onEmployeeDelete() {
-        employeeService.delete(getEmployeeForm().getId());
+        employeeService.delete(getSelectedEmployee().getId());
         gotoReadPage();
     }
 
     public void startSearch() {
-        log.info(
-                String.format("Start search: %s %s %s", this.getEmployeeForm().getId(), this.getEmployeeForm().getFirstName(), this.getEmployeeForm().getLastName())
-        );
+//        log.info(
+//                String.format("Start search: %s %s %s", this.getEmployeeForm().getId(), this.getEmployeeForm().getFirstName(), this.getEmployeeForm().getLastName())
+//        );
         searchResults = new ArrayList<>();
-        searchResults.addAll(
-                getEmployeeService().search(getEmployeeForm())
-        );
+        searchResults.addAll(getEmployeeService().search(getEmployeeForm()));
+    }
+
+    public void onResetClick() {
+        if (getCrudMode().equals("read")) {
+            resetForm();
+            startSearch();
+        } else if (getCrudMode().equals("update")) {
+            resetFormToSelectedEmployee();
+        }
     }
 }

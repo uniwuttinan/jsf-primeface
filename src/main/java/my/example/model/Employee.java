@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Setter
 @Getter
-public class Employee implements Serializable {
+public class Employee implements Serializable, Cloneable {
     private String id;
 
     private String firstName;
@@ -29,5 +29,20 @@ public class Employee implements Serializable {
         this.firstName = "";
         this.lastName = "";
         this.birthDate = new Date();
+    }
+
+
+    @Override
+    public Employee clone() {
+        try {
+            Employee clone = (Employee) super.clone();
+            clone.id = this.id;
+            clone.firstName = this.firstName;
+            clone.lastName = this.lastName;
+            clone.birthDate = this.birthDate;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
