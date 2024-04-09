@@ -6,8 +6,10 @@ import my.example.model.Employee;
 import my.example.service.EmployeeServiceMemory;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,11 +65,13 @@ public class EmployeeBean implements Serializable {
 
     public void onEmployeeCreate() {
         employeeService.add(getEmployeeForm());
+        showMessage("บันทึกข้อมูลเรียบร้อย (CREATE)");
         gotoReadPage();
     }
 
     public void onEmployeeUpdate() {
         employeeService.update(getEmployeeForm());
+        showMessage("บันทึกข้อมูลเรียบร้อย (UPDATE)");
         gotoReadPage();
     }
 
@@ -98,5 +102,9 @@ public class EmployeeBean implements Serializable {
             return 2;
         }
         return 3;
+    }
+
+    public void showMessage(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", message));
     }
 }

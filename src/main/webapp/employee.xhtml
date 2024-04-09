@@ -11,6 +11,10 @@
 </h:head>
 <h:body>
     <h:form id="baseForm">
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
         <w:employeeForm
                 id="employeeForm"
                 employeeBean="#{employeeBean}"
