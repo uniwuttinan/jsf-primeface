@@ -56,9 +56,8 @@ public class EmployeeBean implements Serializable {
 
     public void setSelectedEmployee(Employee employee) {
         if (employee == null) return;
-
-        this.selectedEmployee = employee;
-        this.employeeForm = employee;
+        this.selectedEmployee = employee.clone();
+        this.employeeForm = employee.clone();
         setCrudMode("update");
     }
 
