@@ -48,17 +48,15 @@ public class EmployeeBean implements Serializable {
         setEmployeeForm(getSelectedEmployee().clone());
     }
 
-    public void onEditClicked(Employee employee) {
-        setSelectedEmployee(employee.clone());
-        setEmployeeForm(employee.clone());
+    public void startEdit(Employee employee) {
+        this.selectedEmployee = employee.clone();
+        this.employeeForm = employee.clone();
         setCrudMode("update");
     }
 
     public void setSelectedEmployee(Employee employee) {
         if (employee == null) return;
-        this.selectedEmployee = employee.clone();
-        this.employeeForm = employee.clone();
-        setCrudMode("update");
+        startEdit(employee);
     }
 
     public void gotoCreatePage() {
@@ -105,6 +103,7 @@ public class EmployeeBean implements Serializable {
 //        );
         searchResults = new ArrayList<>();
         searchResults.addAll(getEmployeeService().search(getEmployeeForm()));
+        setCrudMode("read");
     }
 
     public void onResetClick() {
@@ -117,10 +116,7 @@ public class EmployeeBean implements Serializable {
     }
 
     public int getPanelGridColumnCount() {
-        if (getCrudMode().equals("read")) {
-            return 2;
-        }
-        return 3;
+        return getCrudMode().equals("read") ? 2 : 3;
     }
 
     public void showMessage(String message) {
@@ -132,13 +128,12 @@ public class EmployeeBean implements Serializable {
     }
 
     public void onRowSelect(SelectEvent event) {
-//        log.info("Selected: " + event.getObject());
-
+        // log.info("Selected: " + event.getObject());
         Employee employee = (Employee) event.getObject();
         if (employee == null) {
             return;
         }
 
-        onEditClicked(employee);
+        startEdit(employee);
     }
 }

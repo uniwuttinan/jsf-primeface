@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="th"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:w="http://java.sun.com/jsf/composite/wuttinan"
-      xmlns:f="http://java.sun.com/jsf/core"
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        lang="th"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:w="http://java.sun.com/jsf/composite/wuttinan"
+        xmlns:f="http://java.sun.com/jsf/core"
 >
 <h:head>
     <title>Employee</title>
@@ -64,8 +66,9 @@
                 id="deleteEmployeeButton"
                 value="Delete"
                 action="#{employeeBean.onEmployeeDelete}"
-                process="@form"
                 update="@form"
+                process="@this"
+                immediate="true"
                 rendered="#{employeeBean.crudMode == 'update'}"
         />
 
@@ -80,11 +83,12 @@
         />
 
         <p:commandButton
-                id="resetSearch"
+                id="resetButton"
                 value="Reset"
                 action="#{employeeBean.onResetClick}"
-                process="@form"
                 update="@form"
+                process="@this"
+                immediate="true"
                 rendered="#{employeeBean.crudMode == 'read' || employeeBean.crudMode == 'update'}"
         />
 
