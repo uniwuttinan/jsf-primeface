@@ -19,7 +19,7 @@ rm -f $TOMCAT_PATH/webapps/$APP_NAME.war
 cp $WAR_FILE_PATH $TOMCAT_PATH/webapps/$APP_NAME.war
 
 # Restart the Tomcat server
-$TOMCAT_PATH/bin/shutdown.sh
+$TOMCAT_PATH/bin/shutdown.sh 2>/dev/null
 $TOMCAT_PATH/bin/startup.sh
 
 echo "Deployment completed"
