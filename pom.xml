@@ -24,7 +24,7 @@
         <!-- Dependency Properties -->
 
         <!-- Complied Scope  -->
-        <my.org.primefaces>6.2</my.org.primefaces>
+        <my.org.primefaces>8.0</my.org.primefaces>
         <my.org.glassfish.javax.faces>2.0.11-03</my.org.glassfish.javax.faces>
         <my.javax.servlet.jstl>1.2</my.javax.servlet.jstl>
         <my.commons-beanutils>1.9.4</my.commons-beanutils>
