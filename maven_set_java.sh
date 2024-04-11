@@ -1,0 +1,1 @@
+export JAVA_HOME=/workspaces/jsf-primeface/.jdk/jdk8
