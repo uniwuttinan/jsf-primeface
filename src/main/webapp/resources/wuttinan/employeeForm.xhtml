@@ -53,6 +53,7 @@
                 value="#{cc.attrs.employeeBean.employeeForm.age}"
                 rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"
         />
+        <p:message for="age" rendered="#{cc.attrs.employeeBean.crudMode ne 'read'}"/>
     </p:panelGrid>
 </composite:implementation>
 
