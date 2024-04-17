@@ -26,72 +26,78 @@
 
         <br/>
 
-        <p:commandButton
-                id="createEmployeeButton"
-                value="Create"
-                action="#{employeeBean.onEmployeeCreate}"
-                process="@form"
-                update="@form"
-                rendered="#{employeeBean.crudMode == 'create'}"
-        />
+        <p:toolbar>
+            <f:facet name="left">
+                <p:commandButton
+                        id="searchEmployeeButton"
+                        value="Search"
+                        action="#{employeeBean.startSearch}"
+                        process="@form"
+                        update="@form"
+                        rendered="#{employeeBean.crudMode == 'read'}"
+                />
 
-        <p:commandButton
-                id="searchEmployeeButton"
-                value="Search"
-                action="#{employeeBean.startSearch}"
-                process="@form"
-                update="@form"
-                rendered="#{employeeBean.crudMode == 'read'}"
-        />
+                <p:commandButton
+                        id="createEmployeeButton"
+                        value="Create"
+                        action="#{employeeBean.onEmployeeCreate}"
+                        process="@form"
+                        update="@form"
+                        rendered="#{employeeBean.crudMode == 'create'}"
+                />
 
-        <p:commandButton
-                id="addEmployeeButton"
-                value="Add"
-                action="#{employeeBean.gotoCreatePage}"
-                process="@form"
-                update="@form"
-                rendered="#{employeeBean.crudMode == 'read'}"
-        />
+                <p:commandButton
+                        id="updateEmployeeButton"
+                        value="Update"
+                        action="#{employeeBean.onEmployeeUpdate}"
+                        process="@form"
+                        update="@form"
+                        rendered="#{employeeBean.crudMode == 'update'}"
+                />
 
-        <p:commandButton
-                id="updateEmployeeButton"
-                value="Update"
-                action="#{employeeBean.onEmployeeUpdate}"
-                process="@form"
-                update="@form"
-                rendered="#{employeeBean.crudMode == 'update'}"
-        />
+                <p:commandButton
+                        id="deleteEmployeeButton"
+                        value="Delete"
+                        action="#{employeeBean.onEmployeeDelete}"
+                        update="@form"
+                        process="@this"
+                        immediate="true"
+                        rendered="#{employeeBean.crudMode == 'update'}"
+                />
+            </f:facet>
 
-        <p:commandButton
-                id="deleteEmployeeButton"
-                value="Delete"
-                action="#{employeeBean.onEmployeeDelete}"
-                update="@form"
-                process="@this"
-                immediate="true"
-                rendered="#{employeeBean.crudMode == 'update'}"
-        />
+            <f:facet name="right">
+                <p:commandButton
+                        id="resetButton"
+                        value="Reset"
+                        action="#{employeeBean.onResetClick}"
+                        update="@form"
+                        process="@this"
+                        immediate="true"
+                        rendered="#{employeeBean.crudMode == 'read' || employeeBean.crudMode == 'update'}"
+                />
 
-        <p:commandButton
-                id="backButton"
-                value="Back"
-                action="#{employeeBean.gotoReadPage}"
-                update="@form"
-                process="@this"
-                immediate="true"
-                rendered="#{employeeBean.crudMode == 'create' || employeeBean.crudMode == 'update'}"
-        />
+                <p:commandButton
+                        id="addEmployeeButton"
+                        value="Add"
+                        action="#{employeeBean.gotoCreatePage}"
+                        process="@form"
+                        update="@form"
+                        rendered="#{employeeBean.crudMode == 'read'}"
+                />
 
-        <p:commandButton
-                id="resetButton"
-                value="Reset"
-                action="#{employeeBean.onResetClick}"
-                update="@form"
-                process="@this"
-                immediate="true"
-                rendered="#{employeeBean.crudMode == 'read' || employeeBean.crudMode == 'update'}"
-        />
-
+                <p:commandButton
+                        id="backButton"
+                        value="Back"
+                        action="#{employeeBean.gotoReadPage}"
+                        update="@form"
+                        process="@this"
+                        immediate="true"
+                        rendered="#{employeeBean.crudMode == 'create' || employeeBean.crudMode == 'update'}"
+                />
+            </f:facet>
+        </p:toolbar>
+        
         <br/><br/>
 
         <p:dataTable
