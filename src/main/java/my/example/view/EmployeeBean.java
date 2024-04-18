@@ -3,14 +3,15 @@ package my.example.view;
 import lombok.Getter;
 import lombok.Setter;
 import my.example.model.Employee;
-import my.example.service.EmployeeServiceMemory;
+import my.example.service.IEmployeeService;
 import org.primefaces.event.SelectEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -20,11 +21,12 @@ import java.util.logging.Logger;
 @Setter
 @Getter
 @ViewScoped
-@ManagedBean(name = "employeeBean")
+@Named("employeeBean")
 public class EmployeeBean implements Serializable {
     private static final Logger log = Logger.getLogger(EmployeeBean.class.getName());
 
-    private final EmployeeServiceMemory employeeService = new EmployeeServiceMemory();
+    @Inject
+    private IEmployeeService employeeService;
 
     private List<Employee> searchResults = new ArrayList<>();
 
@@ -36,7 +38,6 @@ public class EmployeeBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        employeeService.mock();
         startSearch();
     }
 
@@ -127,9 +128,9 @@ public class EmployeeBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", message));
     }
 
-    public void onRowSelect(SelectEvent event) {
+    public void onRowSelect(SelectEvent<Employee> event) {
         // log.info("Selected: " + event.getObject());
-        Employee employee = (Employee) event.getObject();
+        Employee employee = event.getObject();
         if (employee == null) {
             return;
         }

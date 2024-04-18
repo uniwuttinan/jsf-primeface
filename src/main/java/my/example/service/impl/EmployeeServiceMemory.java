@@ -1,7 +1,10 @@
-package my.example.service;
+package my.example.service.impl;
 
 import my.example.model.Employee;
+import my.example.service.IEmployeeService;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,11 +15,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EmployeeServiceMemory implements Serializable {
+@ApplicationScoped
+public class EmployeeServiceMemory implements IEmployeeService, Serializable {
     private static final Logger log = Logger.getLogger(EmployeeServiceMemory.class.getName());
     public static HashMap<String, Employee> employeeMap = new HashMap<String, Employee>();
     private static int recordIndex = 0;
 
+    @PostConstruct
     public void mock() {
         if (!employeeMap.isEmpty()) {
             return;
@@ -31,6 +36,8 @@ public class EmployeeServiceMemory implements Serializable {
         } catch (ParseException e) {
             log.log(Level.SEVERE, "Error parsing date", e);
         }
+        
+        log.info("Mock data completed");
     }
 
     public void add(Employee employee) {
