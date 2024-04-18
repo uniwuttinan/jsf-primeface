@@ -20,7 +20,7 @@ import java.util.logging.Level;
 @ApplicationScoped
 @MyService(MyService.EMPLOYEE_SERVICE_MEMORY)
 public class EmployeeServiceMemory implements IEmployeeService, Serializable {
-    public static HashMap<String, Employee> employeeMap = new HashMap<String, Employee>();
+    public static HashMap<String, Employee> employeeMap = new HashMap<>();
     private static int recordIndex = 0;
 
 
@@ -65,7 +65,7 @@ public class EmployeeServiceMemory implements IEmployeeService, Serializable {
     }
 
     public List<Employee> search(Employee employee) {
-        List<Employee> employeeList = new ArrayList<Employee>();
+        List<Employee> employeeList = new ArrayList<>();
         for (Map.Entry<String, Employee> entry : employeeMap.entrySet()) {
             // if the first name and last name are empty, return all employees
             if (employee.getFirstName().isEmpty() && employee.getLastName().isEmpty()) {
