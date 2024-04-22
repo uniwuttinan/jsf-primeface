@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="jpa_local" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <class>my.example.model.Employee</class>
+
+        <properties>
+            <property name="eclipselink.logging.level" value="FINE"/>
+
+            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:LOCAL.sqlite"/>
+            <!--            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite::memory:"/>-->
+
+            <!--
+            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.util.DatabaseManagerSwing" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:testdb" />
+             -->
+
+            <!-- <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>-->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testdb"/>-->
+            <!-- jdbc:hsqldb:mem:LOCAL.sqlite-->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:LOCAL.sqlite"/>-->
+
+            <!--
+            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite::memory:" />
+            -->
+
+            <!--
+            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:testdb" />
+             -->
+
+            <!-- EclipseLink should create the database schema automatically -->
+            <!--            THIS WILL SAVE TO MEMORY NOT ./LOCAL.sqlite-->
+            <!--            <property name="eclipselink.ddl-generation" value="create-tables"/>-->
+            <!--            <property name="eclipselink.ddl-generation.output-mode" value="database"/>-->
+
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="javax.persistence.schema-generation.scripts.action" value="create"/>
+            <property name="javax.persistence.schema-generation.scripts.create-target" value="./LOCAL.sqlite"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>

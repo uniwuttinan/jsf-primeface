@@ -43,11 +43,44 @@
         <my.javax.el.el-api>2.2</my.javax.el.el-api>
 
         <my.javaee.web.api>8.0.1</my.javaee.web.api>
+
+        <my.ch.qos.logback>1.4.14</my.ch.qos.logback>
+        <my.org.eclipse.persistence>2.5.2</my.org.eclipse.persistence>
+        <my.sqlite-jdbc>3.44.1.0</my.sqlite-jdbc>
+        <my.org.hsqldb>2.7.1</my.org.hsqldb>
     </properties>
 
     <dependencies>
-
         <!-- Complied Scope  -->
+
+        <!--JPA DEPENDENCY START-->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>${my.org.eclipse.persistence}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${my.ch.qos.logback}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${my.org.hsqldb}</version>
+            <scope>compile</scope>
+            <classifier>jdk8</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${my.sqlite-jdbc}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--JPA DEPENDENCY END-->
+
 
         <!-- CDI DEPS START -->
         <dependency>
@@ -67,6 +100,7 @@
 
         <!-- CDI DEPS END -->
 
+        <!-- JSF DEPS START -->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
@@ -91,6 +125,7 @@
             <version>${my.javax.el.el-api}</version>
             <scope>compile</scope>
         </dependency>
+        <!-- JSF DEPS END -->
 
         <dependency>
             <groupId>commons-beanutils</groupId>
@@ -98,11 +133,11 @@
             <version>${my.commons-beanutils}</version>
             <scope>compile</scope>
         </dependency>
-        <!--		<dependency>-->
-        <!--			<groupId>org.slf4j</groupId>-->
-        <!--			<artifactId>slf4j-api</artifactId>-->
-        <!--			<version>2.0.9</version>-->
-        <!--		</dependency>-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.12</version>
+        </dependency>
 
         <!-- Provided Scope  -->
         <dependency>
