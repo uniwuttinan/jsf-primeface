@@ -12,39 +12,42 @@
         <properties>
             <property name="eclipselink.logging.level" value="FINE"/>
 
-            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:LOCAL.sqlite"/>
-            <!--            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite::memory:"/>-->
-
-            <!--
-            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.util.DatabaseManagerSwing" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:testdb" />
-             -->
-
-            <!-- <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>-->
-            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testdb"/>-->
-            <!-- jdbc:hsqldb:mem:LOCAL.sqlite-->
-            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:LOCAL.sqlite"/>-->
-
-            <!--
-            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite::memory:" />
-            -->
-
-            <!--
-            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:testdb" />
-             -->
-
-            <!-- EclipseLink should create the database schema automatically -->
-            <!--            THIS WILL SAVE TO MEMORY NOT ./LOCAL.sqlite-->
-            <!--            <property name="eclipselink.ddl-generation" value="create-tables"/>-->
-            <!--            <property name="eclipselink.ddl-generation.output-mode" value="database"/>-->
+            <!-- MYSQL SETTINGS -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://${DB_HOST}:3306/${DB_NAME}"/>
+            <property name="javax.persistence.jdbc.user" value="${DB_USER}"/>
+            <property name="javax.persistence.jdbc.password" value="${DB_PASSWORD}"/>
 
             <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="javax.persistence.schema-generation.scripts.action" value="create"/>
-            <property name="javax.persistence.schema-generation.scripts.create-target" value="./LOCAL.sqlite"/>
+
+            <!-- SQLITE SETTINGS -->
+            <!-- <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>-->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:LOCAL.sqlite"/>-->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:sqlite::memory:"/>-->
+            <!-- EclipseLink should create the database schema automatically -->
+            <!-- THIS WILL SAVE TO MEMORY NOT ./LOCAL.sqlite -->
+            <!-- <property name="eclipselink.ddl-generation" value="create-tables"/>-->
+            <!-- <property name="eclipselink.ddl-generation.output-mode" value="database"/>-->
+            <!-- THIS WILL SAVE TO FILE-->
+            <!-- <property name="javax.persistence.schema-generation.scripts.create-target" value="./LOCAL.sqlite"/>-->
+
+            <!-- HSQLDB SETTINGS -->
+            <!--  <property name="javax.persistence.jdbc.driver" value="org.hsqldb.util.DatabaseManagerSwing" />-->
+            <!--  <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:testdb" />-->
+            <!-- <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>-->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testdb"/>-->
+            <!-- STORE DATA IN FILE: jdbc:hsqldb:mem:LOCAL.sqlite-->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:LOCAL.sqlite"/>-->
+
+            <!-- SQLite SETTINGS -->
+            <!-- <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />-->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:sqlite::memory:" />-->
+            <!-- <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />-->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:testdb" />-->
         </properties>
     </persistence-unit>
 

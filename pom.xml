@@ -79,8 +79,12 @@
             <version>${my.sqlite-jdbc}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.2.0</version>
+        </dependency>
         <!--JPA DEPENDENCY END-->
-
 
         <!-- CDI DEPS START -->
         <dependency>
@@ -97,7 +101,6 @@
             <version>${my.weld-servlet-shaded}</version>
             <scope>compile</scope>
         </dependency>
-
         <!-- CDI DEPS END -->
 
         <!-- JSF DEPS START -->
@@ -127,6 +130,7 @@
         </dependency>
         <!-- JSF DEPS END -->
 
+        <!-- UTILS DEPS START -->
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
@@ -138,6 +142,7 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.12</version>
         </dependency>
+        <!-- UTILS DEPS END -->
 
         <!-- Provided Scope  -->
         <dependency>

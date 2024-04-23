@@ -15,7 +15,9 @@ import java.util.Date;
 @ToString
 public class Employee implements Serializable, Cloneable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY) // for SQLite
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE) // for MySQL (NOT WORK)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @Column(name = "firstname")
