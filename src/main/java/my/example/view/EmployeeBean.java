@@ -28,7 +28,7 @@ public class EmployeeBean implements Serializable {
     private MyLogger logger;
 
     @Inject
-    @MyService(MyService.EMPLOYEE_SERVICE_MEMORY)
+    @MyService(MyService.EMPLOYEE_SERVICE_DB)
     private IEmployeeService employeeService;
 
     private List<Employee> searchResults = new ArrayList<>();
@@ -103,9 +103,9 @@ public class EmployeeBean implements Serializable {
     }
 
     public void startSearch() {
-//        log.info(
-//                String.format("Start search: %s %s %s", this.getEmployeeForm().getId(), this.getEmployeeForm().getFirstName(), this.getEmployeeForm().getLastName())
-//        );
+        // log.info(
+        // String.format("Start search: %s %s %s", this.getEmployeeForm().getId(), this.getEmployeeForm().getFirstName(), this.getEmployeeForm().getLastName())
+        // ;
         searchResults = new ArrayList<>();
         searchResults.addAll(getEmployeeService().search(getEmployeeForm()));
         setCrudMode("read");
