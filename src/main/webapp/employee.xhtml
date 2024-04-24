@@ -13,7 +13,9 @@
     <title>Employee</title>
 </h:head>
 <h:body>
-
+    <h:outputText value="DATABASE MODE: #{employeeBean.databaseType}"/>
+    <br/> <br/>
+    
     <h:form id="baseForm">
         <p:messages id="messages" showDetail="true" closable="true">
             <p:autoUpdate/>

@@ -8,5 +8,11 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 8080:8080
+    environment:
+      - DB_TYPE=MYSQL
+      - DB_NAME=${DB_NAME:-jsfprimeface}
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     volumes:
       - ./DEBUG/tomcat/logs:/usr/local/tomcat/logs

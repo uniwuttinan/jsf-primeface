@@ -13,6 +13,15 @@ public class MyEntityManagerFactory {
     private static final Logger logger = Logger.getLogger(MyEntityManagerFactory.class.getName());
     private static EntityManager entityManager;
 
+    // MySQL Template from persistence.xml
+    // <!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>-->
+    // <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://${DB_HOST}:3306/${DB_NAME}"/>-->
+    // <!-- <property name="javax.persistence.jdbc.user" value="${DB_USER}"/>-->
+    // <!-- <property name="javax.persistence.jdbc.password" value="${DB_PASSWORD}"/>-->
+    // <!-- <property name="eclipselink.ddl-generation" value="create-tables"/>-->
+    // <!-- <property name="eclipselink.ddl-generation.output-mode" value="database"/>-->
+    // <!-- <property name="javax.persistence.schema-generation.database.action" value="create"/>-->
+    // <!-- <property name="javax.persistence.schema-generation.scripts.action" value="create"/>-->
     private static Map<String, String> createMySQLConnectionProperties() {
         // load environment variables and create properties map
         String dbHost = System.getenv("DB_HOST");
@@ -27,6 +36,12 @@ public class MyEntityManagerFactory {
         properties.put("javax.persistence.jdbc.url", jdbcUrl);
         properties.put("javax.persistence.jdbc.user", dbUser);
         properties.put("javax.persistence.jdbc.password", dbPassword);
+        //auto create tables
+        properties.put("eclipselink.ddl-generation", "create-tables");
+        properties.put("eclipselink.ddl-generation.output-mode", "database");
+        properties.put("javax.persistence.schema-generation.database.action", "create");
+        properties.put("javax.persistence.schema-generation.scripts.action", "create");
+        
         return properties;
     }
 
@@ -80,9 +95,9 @@ public class MyEntityManagerFactory {
     @Produces
     public EntityManager getEntityManagerFactory() {
         if (entityManager == null) {
-            Map<String, String> properties;
-            String DB_TYPE = System.getenv("DB_TYPE");
+            String DB_TYPE = getDatabaseType();
             logger.info("DB_TYPE: " + DB_TYPE);
+            Map<String, String> properties;
 
             switch (DB_TYPE == null ? "" : DB_TYPE) {
                 case "MYSQL":
@@ -106,5 +121,10 @@ public class MyEntityManagerFactory {
         }
 
         return entityManager;
+    }
+
+    public static String getDatabaseType() {
+        String DB_TYPE = System.getenv("DB_TYPE");
+        return DB_TYPE == null ? "SQLITE_IN_MEMORY" : DB_TYPE;
     }
 }

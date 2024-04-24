@@ -2,6 +2,7 @@ package my.example.view;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.example.factory.MyEntityManagerFactory;
 import my.example.logger.MyLogger;
 import my.example.model.Employee;
 import my.example.qualifier.MyService;
@@ -38,6 +39,8 @@ public class EmployeeBean implements Serializable {
     private Employee selectedEmployee = new Employee();
 
     private String crudMode = "read";
+
+    private String databaseType;
 
     @PostConstruct
     public void init() {
@@ -140,5 +143,9 @@ public class EmployeeBean implements Serializable {
         }
 
         startEdit(employee);
+    }
+
+    public String getDatabaseType() {
+        return MyEntityManagerFactory.getDatabaseType();
     }
 }
