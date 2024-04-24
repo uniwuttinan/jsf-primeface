@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="jpa_local" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <class>my.example.model.Employee</class>
+
+        <properties>
+            <property name="eclipselink.logging.level" value="FINE"/>
+
+            <!-- MYSQL SETTINGS -->
+            <!-- WILL BE OVERRIDE BY MyEntityManagerFactory.java -->
+            <!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>-->
+            <!-- <property name="javax.persistence.jdbc.url"-->
+            <!--           value="jdbc:mysql://${DB_HOST}:3306/${DB_NAME}"/>-->
+            <!-- <property name="javax.persistence.jdbc.user" value="${DB_USER}"/>-->
+            <!-- <property name="javax.persistence.jdbc.password" value="${DB_PASSWORD}"/>-->
+            <!-- <property name="eclipselink.ddl-generation" value="create-tables"/>-->
+            <!-- <property name="eclipselink.ddl-generation.output-mode" value="database"/>-->
+            <!-- <property name="javax.persistence.schema-generation.database.action" value="create"/>-->
+            <!-- <property name="javax.persistence.schema-generation.scripts.action" value="create"/>-->
+
+            <!-- SQLITE SETTINGS -->
+            <!--            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>-->
+            <!--            <property name="eclipselink.ddl-generation" value="create-tables"/>-->
+            <!--            <property name="eclipselink.ddl-generation.output-mode" value="database"/>-->
+            <!--            SQLITE SAVE TO FILE-->
+            <!--            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:./my_db.sqlite"/>-->
+            <!--            SQLITE IN MEMORY-->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:sqlite::memory:"/>-->
+
+            <!-- TEMP SETTINGS -->
+            <!-- <property name="javax.persistence.schema-generation.scripts.create-target" value="./LOCAL.sqlite"/>-->
+
+            <!-- HSQLDB SETTINGS -->
+            <!--              <property name="javax.persistence.jdbc.driver" value="org.hsqldb.util.DatabaseManagerSwing" />-->
+            <!--            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>-->
+            <!--            <property name="eclipselink.ddl-generation" value="create-tables"/>-->
+            <!--            <property name="eclipselink.ddl-generation.output-mode" value="database"/>-->
+            <!--            HSQLDB IN MEMORY -->
+            <!--            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testdb"/>-->
+            <!--            HSQLDB SAVE TO FILE-->
+            <!--            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:./my_db.hsqldb"/>-->
+        </properties>
+    </persistence-unit>
+
+</persistence>

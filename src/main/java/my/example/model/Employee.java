@@ -1,34 +1,45 @@
 package my.example.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.ToString;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Duration;
 import java.util.Date;
 
-@Setter
-@Getter
+
+@Entity
+@Table(name = "employees")
+@Data
+@ToString
 public class Employee implements Serializable, Cloneable {
+    @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY) // for SQLite
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE) // for MySQL (NOT WORK)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
+    @Column(name = "firstname")
     private String firstName;
 
+    @Column(name = "lastname")
     private String lastName;
 
+    @Column(name = "birthdate")
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
+    @Transient
     private String age;
 
     public Employee(String firstName, String lastName, Date birthDate) {
-        this.id = "0";
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
     }
 
     public Employee() {
-        this.id = "";
         this.firstName = "";
         this.lastName = "";
         this.birthDate = new Date();

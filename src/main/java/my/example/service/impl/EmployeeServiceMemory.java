@@ -1,7 +1,13 @@
-package my.example.service;
+package my.example.service.impl;
 
+import my.example.logger.MyLogger;
 import my.example.model.Employee;
+import my.example.qualifier.MyService;
+import my.example.service.IEmployeeService;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,13 +16,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class EmployeeServiceMemory implements Serializable {
-    private static final Logger log = Logger.getLogger(EmployeeServiceMemory.class.getName());
+@ApplicationScoped
+@MyService(MyService.EMPLOYEE_SERVICE_MEMORY)
+public class EmployeeServiceMemory implements IEmployeeService, Serializable {
     public static HashMap<String, Employee> employeeMap = new HashMap<String, Employee>();
     private static int recordIndex = 0;
 
+
+    @Inject
+    private MyLogger logger;
+
+    @PostConstruct
     public void mock() {
         if (!employeeMap.isEmpty()) {
             return;
@@ -29,15 +40,17 @@ public class EmployeeServiceMemory implements Serializable {
             add(new Employee("Bob", "Bob", formatter.parse("02-02-2002")));
             add(new Employee("Charlie", "Charlie", formatter.parse("03-03-2003")));
         } catch (ParseException e) {
-            log.log(Level.SEVERE, "Error parsing date", e);
+            logger.log(Level.SEVERE, "Error parsing date", e);
         }
+
+        logger.info("Mock data completed");
     }
 
     public void add(Employee employee) {
         recordIndex++;
         employee.setId(String.valueOf(recordIndex));
         employeeMap.put(employee.getId(), employee);
-        log.log(Level.INFO, String.format("Employee added: #%s %s %s", employee.getId(), employee.getFirstName(), employee.getLastName()));
+        logger.log(Level.INFO, String.format("Employee added: #%s %s %s", employee.getId(), employee.getFirstName(), employee.getLastName()));
     }
 
     public int update(Employee employee) {
@@ -74,8 +87,10 @@ public class EmployeeServiceMemory implements Serializable {
     public int delete(String id) {
         if (employeeMap.containsKey(id)) {
             employeeMap.remove(id);
+            logger.info("Deleted employee: " + id);
             return 1;
         } else {
+            logger.warning("Employee deletion not found: " + id);
             return 0;
         }
     }
